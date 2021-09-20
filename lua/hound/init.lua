@@ -14,7 +14,7 @@ function M.reset()
   require("hound").enable()
 end
 
-local function display_results(results)
+local function display_results(query, results)
   if next(results) == nil then
     print "Nothing for you, Dawg."
     return
@@ -50,6 +50,9 @@ local function display_results(results)
   api.nvim_buf_set_lines(buf, 0, -1, false, output)
   api.nvim_win_set_buf(win, buf)
   api.nvim_buf_set_option(buf, "modifiable", false)
+
+  -- Highlight the search query
+  api.nvim_feedkeys(api.nvim_replace_termcodes("/" .. query .. "<CR>", true, true, true), "n", true)
 end
 
 local function build_url(query)
@@ -73,7 +76,7 @@ end
 
 function M.hound(query)
   local results = fetch_results(query)
-  display_results(results)
+  display_results(query, results)
 end
 
 return M
