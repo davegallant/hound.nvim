@@ -5,7 +5,7 @@ M.namespace = vim.api.nvim_create_namespace "Hound"
 local defaults = {
   hound_base_url = "http://localhost", -- base url for the hound api
   hound_port = 6080, -- the port hound is running on
-  split = "vsplit", -- where to open the new buffer (can also use split)
+  split = "newtab", -- where to open the search results (vsplit, split, newtab)
 }
 
 --- @type HoundOptions
