@@ -25,8 +25,11 @@ use {
 {
   hound_base_url = "http://localhost", -- base url for the hound api
   hound_port = 6080, -- the port hound is running on
-  split = "newtab", -- where to open the search results (vsplit, split, newtab)
+  hound_url_pattern = "https://github.com/{repo}/blob/{revision}/{path}", -- the format of the url displayed for file matches
+  display_file_match_urls = false, -- whether or not urls should be displayed alongside file matches
+  search_results_buffer = "newtab", -- how to open the search results (vsplit, split, newtab)
 }
+
 ```
 
 ## Usage
