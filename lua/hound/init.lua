@@ -14,11 +14,12 @@ function M.reset()
   require("hound").enable()
 end
 
-local function build_file_match_url(repo, revision, path)
+local function build_file_match_url(repo, revision, path, lineno)
   local url = config.options.hound_url_pattern
   url = url:gsub("{repo}", repo)
   url = url:gsub("{revision}", revision)
   url = url:gsub("{path}", path)
+  url = url:gsub("{lineno}", lineno)
   return url
 end
 
@@ -28,23 +29,21 @@ local function display_results(query, results)
     return
   end
 
-  vim.cmd(config.options.search_results_buffer)
+  if config.options.search_results_buffer ~= nil then
+    vim.cmd(config.options.search_results_buffer)
+  end
 
   local win = api.nvim_get_current_win()
   local buf = api.nvim_create_buf(false, true)
   local output = {}
 
   for repo_name, repo in pairs(results) do
-    table.insert(output, "")
     table.insert(output, "Repo: " .. repo_name)
     table.insert(output, "================================================================================")
     for _, repo_match in pairs(repo["Matches"]) do
       for _, line_match in pairs(repo_match["Matches"]) do
         table.insert(output, "")
         table.insert(output, repo_match["Filename"] .. ":" .. line_match["LineNumber"])
-        if config.options.display_file_match_urls then
-          table.insert(output, build_file_match_url(repo_name, repo["Revision"], repo_match["Filename"]))
-        end
         table.insert(output, "--------------------------------------------------------------------------------")
         for _, line in pairs(line_match["Before"]) do
           table.insert(output, line)
@@ -53,6 +52,14 @@ local function display_results(query, results)
         for _, line in pairs(line_match["After"]) do
           table.insert(output, line)
         end
+        table.insert(output, "--------------------------------------------------------------------------------")
+        if config.options.display_file_match_urls then
+          table.insert(
+            output,
+            build_file_match_url(repo_name, repo["Revision"], repo_match["Filename"], line_match["LineNumber"])
+          )
+        end
+        table.insert(output, "")
       end
     end
     table.insert(output, "")

@@ -23,13 +23,17 @@ use {
 
 ```lua
 {
-  hound_base_url = "http://localhost", -- base url for the hound api
-  hound_port = 6080, -- the port hound is running on
-  hound_url_pattern = "https://github.com/{repo}/blob/{revision}/{path}", -- the format of the url displayed for file matches
-  display_file_match_urls = false, -- whether or not urls should be displayed alongside file matches
-  search_results_buffer = "newtab", -- how to open the search results (vsplit, split, newtab)
+  -- base url for the hound api
+  hound_base_url = "http://localhost",
+  -- the port hound is running on
+  hound_port = 6080,
+  -- how to open the search results (vsplit, split, tabnew). Defaults to nil (the same buffer).
+  search_results_buffer = nil,
+  -- whether or not urls should be displayed alongside file matches
+  display_file_match_urls = false,
+  -- format for display_file_match_urls
+  hound_url_pattern = "https://github.com/{repo}/blob/{revision}/{path}#L{lineno}",
 }
-
 ```
 
 ## Usage
