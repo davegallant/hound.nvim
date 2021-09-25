@@ -15,7 +15,7 @@ function M.reset()
 end
 
 local function build_file_match_url(repo, revision, path, lineno)
-  local url = config.options.hound_url_pattern
+  local url = config.options.file_match_url_pattern
   url = url:gsub("{repo}", repo)
   url = url:gsub("{revision}", revision)
   url = url:gsub("{path}", path)

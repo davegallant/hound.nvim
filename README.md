@@ -32,10 +32,10 @@ use {
   -- whether or not urls should be displayed alongside file matches
   display_file_match_urls = false,
   -- format for display_file_match_urls
-  hound_url_pattern = "https://github.com/{repo}/blob/{revision}/{path}#L{lineno}",
+  file_match_url_pattern = "https://github.com/{repo}/blob/{revision}/{path}#L{lineno}",
 }
 ```
 
 ## Usage
 
-The `:Hound` command that takes a query (string) and displays the search results in a new buffer.
+The `:Hound` command that takes a query (string) and displays the search results in a buffer.
